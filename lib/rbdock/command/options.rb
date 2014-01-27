@@ -12,9 +12,9 @@ module Rbdock
         
         begin
           command_parser.order!(argv)          
-          options[:command] = argv.shift
-          ruby_version_perser options, argv
+          options[:command] = argv.shift          
           sub_command_parser[options[:command]].parse!(argv)
+          ruby_version_perser options, argv
         rescue OptionParser::MissingArgument, OptionParser::InvalidOption, ArgumentError => e
           abort e.message
         end
@@ -37,14 +37,6 @@ module Rbdock
         end
       end
 
-      def self.ruby_version_perser options, argv
-        if options[:command] == 'create'
-          end_index = argv.index('-i').nil? ? -1 : (argv.index('-i') - 1)
-          options[:ruby_versions] = argv[0..end_index]
-        end
-        options
-      end
-
       def self.create_sub_command_parser options
         parser = Hash.new do |k,v|
           raise ArgumentError, "'#{v}' is not sub command."
@@ -58,6 +50,14 @@ module Rbdock
         end
         
         parser
+      end
+
+      def self.ruby_version_perser options, argv
+        if options[:command] == 'create'
+          raise ArgumentError, "#{options[:command]} ruby versions not founnd." if argv.empty?
+          options[:ruby_versions] = argv
+        end
+        options
       end
       
     end
