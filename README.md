@@ -1,6 +1,6 @@
-# Rbdock
+# rbdock
 
-TODO: Write a gem description
+Generate Dockerfile which is installs ruby.
 
 ## Installation
 
@@ -18,7 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+$ rbdock create 2.0.0-p353
+$ rbdock create 2.0.0-p353 -i centos
+$ rbdock create 2.0.0-p353 1.9.3-p484 -i ubuntu
+```
+
 
 ## Contributing
 
