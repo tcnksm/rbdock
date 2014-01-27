@@ -29,8 +29,14 @@ module Rbdock
             STDERR.puts opt.ver
             exit              
           }
-          
-          opt.on_head('-h','--help','Show help') {
+
+          opt.banner   = "Usage: #{opt.program_name} [-h|--help] [-v|--version] <command> [<args>]"
+          opt.separator  ''
+          opt.separator  "#{opt.program_name} Available Commands:"
+          sub_command_help.each do |command|
+            opt.separator [opt.summary_indent, command[:name].ljust(40), command[:summary]].join(' ')
+          end
+          opt.on_head('-h','--help','Show this message') {
             STDERR.puts opt.help
             exit              
           }         
@@ -44,9 +50,11 @@ module Rbdock
         
         parser['create'] = OptionParser.new do |opt|
           options[:image] = "ubuntu" # default value
-          opt.on('-i VAL','--image=VAL', 'Image name') { |val|
+          opt.banner = 'Usage: create <ruby-versions> [<args>]'          
+          opt.on('-i VAL','--image=VAL', 'Set image name') { |val|
             options[:image] = val
-          }          
+          }
+          opt.on_tail('-h','--help', 'Show this message') { help_sub_command(opt) }
         end
         
         parser
@@ -59,7 +67,17 @@ module Rbdock
         end
         options
       end
-      
+
+      def self.help_sub_command parser
+        STDERR.puts parser.help
+        exit
+      end
+
+      def self.sub_command_help
+        [
+         {name: 'create <ruby-versions> -i <image>', summary: 'Generate Dockerfile which installs <ruby-versions>'}
+        ]
+      end
     end
   end
 end
