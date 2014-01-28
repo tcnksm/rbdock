@@ -1,6 +1,5 @@
 module Rbdock
 
-  # @author tcnksm
   class Command
     autoload :Options, "rbdock/command/options"
     
