@@ -17,8 +17,7 @@ module Rbdock
 
       case sub_command
       when 'create'
-        p options[:ruby_versions]
-        p options[:image]
+        Rbdock::Create.run(options)
       end
     rescue => e
       abort "Error: #{e.message}"
