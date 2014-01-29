@@ -4,17 +4,7 @@ Generate Dockerfile which is installs ruby.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'rbdock'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install rbdock
+Still construction. You should not use it.
 
 ## Usage
 
