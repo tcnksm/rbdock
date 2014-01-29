@@ -54,6 +54,7 @@ module Rbdock
           opt.on('-i VAL','--image=VAL', 'Set image name') { |val|
             options[:image] = val
           }
+          opt.on('-l','--list', 'List all available ruby versions') { list_ruby_versions }
           opt.on_tail('-h','--help', 'Show this message') { help_sub_command(opt) }
         end
         
@@ -63,9 +64,25 @@ module Rbdock
       def self.ruby_version_perser options, argv
         if options[:command] == 'create'
           raise ArgumentError, "#{options[:command]} ruby versions not founnd." if argv.empty?
+          check_version_avaiable argv
           options[:ruby_versions] = argv
         end
         options
+      end
+
+      def self.check_version_avaiable argv
+        argv.each do |v|
+          if not Rbdock::Create.ruby_versions.include? v
+            raise ArgumentError, "Definition not found: #{v} \n\nYou can list all available ruby versions with `rbdock create --list'."            
+          end
+        end
+      end
+
+      def self.list_ruby_versions
+        STDERR.print "Available versions:\n   "
+        STDERR.print Rbdock::Create.ruby_versions.join("\n   ")
+        STDERR.puts
+        exit
       end
 
       def self.help_sub_command parser
