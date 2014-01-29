@@ -1,6 +1,6 @@
 # rbdock
 
-Generate Dockerfile which is installs ruby.
+Generate Dockerfile to build ruby ready image.
 
 ## Installation
 

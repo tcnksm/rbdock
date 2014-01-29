@@ -1,6 +1,6 @@
 # Install Bundler for each version of ruby
 RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
 <% @ruby_versions.each do |v| %>
-RUN bash -l -c 'rbenv global <%= v %>; gem install bundler'
+RUN bash -l -c 'rbenv global <%= v %>; gem update; gem install bundler'
 <% end %>
 
