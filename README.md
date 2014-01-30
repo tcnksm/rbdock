@@ -1,5 +1,7 @@
 # rbdock
 
+[![Gem Version](https://badge.fury.io/rb/rbdock.png)](http://badge.fury.io/rb/rbdock)
+
 Generate Dockerfile to build ruby ready image.
 
 ## Installation
@@ -19,11 +21,26 @@ Or install it yourself as:
 
 ## Usage
 
+Create `Dockerfile` to build ruby 2.0.0-p353 ready image.
+
 ```
 $ rbdock create 2.0.0-p353
-$ rbdock create 2.0.0-p353 -i centos
-$ rbdock create 2.0.0-p353 1.9.3-p484 -i ubuntu
 ```
+
+You can create `Dockerfile` to build multiple versions of ruby.
+
+```
+$ rbdock create 2.0.0-p353 1.9.3-p484
+```
+
+### Options
+
+| Option | descriptions |
+|:-----:|:----:|
+|--image <name>| Set base image. Now `ubuntu` or `cenos` is avalable. Default is `ubuntu`|
+|--rbenv| Use [rbenv](https://github.com/sstephenson/rbenv). Default is rbenv|
+|--rvm  | Use [rvm](https://github.com/wayneeseguin/rvm)
+|--list | List all available ruby versions|
 
 
 ## Contributing
