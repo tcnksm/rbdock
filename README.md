@@ -35,7 +35,8 @@ $ rbdock create 2.0.0-p353 1.9.3-p484
 
 ### Options
 
-|:-----|:----|
+|Option | Description |
+|:----- |:----------- |
 |--image <name>| Set base image. Now `ubuntu` or `cenos` is avalable. Default is `ubuntu`.|
 |--rbenv| Use [rbenv](https://github.com/sstephenson/rbenv) to manage ruby installation|
 |--rvm  | Use [rvm](https://github.com/wayneeseguin/rvm) to manage ruby installation|
