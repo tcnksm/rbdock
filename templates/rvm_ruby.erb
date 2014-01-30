@@ -1,0 +1,11 @@
+# Install rvm
+RUN curl -L https://get.rvm.io | bash -s stable
+RUN echo 'source /usr/local/rvm/scripts/rvm' >> /etc/profile.d/rvm.sh
+RUN echo 'source /usr/local/rvm/scripts/rvm' >> .bashrc
+
+# Install multiple versions of ruby
+ENV PATH /usr/local/rvm/bin:$PATH
+<% @ruby_versions.each do |v| %>
+RUN rvm install --disable-install-doc <%= v %>
+<% end %>
+

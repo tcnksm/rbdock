@@ -51,9 +51,11 @@ module Rbdock
         parser['create'] = OptionParser.new do |opt|
           options[:image] = "ubuntu" # default value
           opt.banner = 'Usage: create <ruby-versions> [<args>]'          
-          opt.on('-i VAL','--image=VAL', 'Set image name') { |val|
+          opt.on('-i name','--image=name', 'Set image name(ubuntu|centos)') { |val|
             options[:image] = val
           }
+          opt.on('--rbenv', desc='Use rbenv') {|f| options[:use_rbenv] = true }
+          opt.on('--rvm',   desc='Use rvm')   {|f| options[:use_rvm] = true }
           opt.on('-l','--list', 'List all available ruby versions') { list_ruby_versions }
           opt.on_tail('-h','--help', 'Show this message') { help_sub_command(opt) }
         end

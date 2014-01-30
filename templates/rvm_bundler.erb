@@ -1,0 +1,5 @@
+# Install Bundler for each version of ruby
+RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
+<% @ruby_versions.each do |v| %>
+RUN bash -l -c 'rvm use <%= v %>; gem update; gem install bundler'
+<% end %>

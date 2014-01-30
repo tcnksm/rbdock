@@ -9,12 +9,19 @@ module Rbdock
     end
     
     def initialize options
-      @image = options[:image]
+      @image         = options[:image]
       @ruby_versions = options[:ruby_versions]
+      @use_rbenv     = options[:use_rbenv]
+      @use_rvm       = options[:use_rvm]
     end
 
-    def generate
-      if use_rbenv?
+    def generate      
+      if @use_rbenv
+        safe_write rbenv_template
+      elsif @use_rvm
+        safe_write rvm_template
+      elsif mutiple_rubies?
+        # Use rbenv for default installing multiple rubies
         safe_write rbenv_template
       else
         safe_write default_template
@@ -40,8 +47,8 @@ module Rbdock
       end
     end
 
-    def use_rbenv?
-      @ruby_versions.length > 1 
+    def mutiple_rubies?
+      @ruby_versions.length > 1
     end
 
     def default_template
@@ -63,6 +70,17 @@ module Rbdock
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)
       
       template_path = Rbdock.source_root.join("templates/rbenv_bundler.erb")
+      template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)      
+    end
+
+    def rvm_template
+      template_path = Rbdock.source_root.join("templates/#{@image}_base_packages.erb")
+      template = Erubis::Eruby.new(template_path.read, trim: true).result(binding)
+      
+      template_path = Rbdock.source_root.join("templates/rvm_ruby.erb")
+      template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)
+      
+      template_path = Rbdock.source_root.join("templates/rvm_bundler.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)      
     end
 
