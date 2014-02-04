@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/rbdock.png)](http://badge.fury.io/rb/rbdock)
 
-Dockerfile to prepare ruby is almost common, so generate it. This is still experimetal and under construction.
+Dockerfile to prepare ruby is almost common, so generate common parts. This is still experimetal and under heavy construction.
 
 ## Installation
 
