@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/rbdock.png)](http://badge.fury.io/rb/rbdock)
 
-Generate Dockerfile to build ruby ready image.
+Dockerfile to prepare ruby is almost common, so generate it. This is still experimetal and under construction.
 
 ## Installation
 
