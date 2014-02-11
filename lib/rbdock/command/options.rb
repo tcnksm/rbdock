@@ -74,7 +74,7 @@ module Rbdock
 
       def self.check_version_avaiable argv
         argv.each do |v|
-          if not Rbdock::Create.ruby_versions.include? v
+          if not Rbdock::Generate.ruby_versions.include? v
             raise ArgumentError, "Definition not found: #{v} \n\nYou can list all available ruby versions with `rbdock create --list'."            
           end
         end
@@ -82,7 +82,7 @@ module Rbdock
 
       def self.list_ruby_versions
         STDERR.print "Available versions:\n   "
-        STDERR.print Rbdock::Create.ruby_versions.join("\n   ")
+        STDERR.print Rbdock::Generate.ruby_versions.join("\n   ")
         STDERR.puts
         exit
       end

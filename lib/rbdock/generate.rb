@@ -2,10 +2,10 @@ require "erubis"
 
 module Rbdock
 
-  class Create
+  class Generate
 
     def self.run options
-      new(options).generate
+      new(options).execute
     end
     
     def initialize options
@@ -15,13 +15,12 @@ module Rbdock
       @use_rvm       = options[:use_rvm]
     end
 
-    def generate      
+    def execute      
       if @use_rbenv
         safe_write rbenv_template
       elsif @use_rvm
         safe_write rvm_template
       elsif mutiple_rubies?
-        # Use rbenv for default installing multiple rubies
         safe_write rbenv_template
       else
         safe_write default_template
@@ -51,9 +50,14 @@ module Rbdock
       @ruby_versions.length > 1
     end
 
-    def default_template
+    def base_package_template
       template_path = Rbdock.source_root.join("templates/base_package/#{@image}.erb")
-      template = Erubis::Eruby.new(template_path.read, trim: true).result(binding)
+      Erubis::Eruby.new(template_path.read, trim: true).result(binding)
+      
+    end
+    
+    def default_template
+      template = base_package_template
       
       template_path = Rbdock.source_root.join("templates/default/ruby.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)
@@ -63,8 +67,7 @@ module Rbdock
     end
 
     def rbenv_template
-      template_path = Rbdock.source_root.join("templates/base_package/#{@image}.erb")
-      template = Erubis::Eruby.new(template_path.read, trim: true).result(binding)
+      template = base_package_template
       
       template_path = Rbdock.source_root.join("templates/rbenv/ruby.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)
@@ -74,8 +77,7 @@ module Rbdock
     end
 
     def rvm_template
-      template_path = Rbdock.source_root.join("templates/base_package/#{@image}.erb")
-      template = Erubis::Eruby.new(template_path.read, trim: true).result(binding)
+      template = base_package_template
       
       template_path = Rbdock.source_root.join("templates/rvm/ruby.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)

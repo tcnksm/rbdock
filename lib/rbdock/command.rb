@@ -17,7 +17,7 @@ module Rbdock
 
       case sub_command
       when 'create'
-        Rbdock::Create.run(options)
+        Rbdock::Generate.run(options)
       end
     rescue => e
       abort "Error: #{e.message}"
