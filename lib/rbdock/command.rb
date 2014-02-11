@@ -12,13 +12,8 @@ module Rbdock
     end
 
     def execute
-      options     = Options.parse!(@argv)
-      sub_command = options.delete(:command)
-
-      case sub_command
-      when 'create'
-        Rbdock::Generate.run(options)
-      end
+      options = Options.parse!(@argv)
+      Rbdock::Generate.run(options)
     rescue => e
       abort "Error: #{e.message}"
     end
