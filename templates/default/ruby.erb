@@ -1,0 +1,9 @@
+# Install ruby-build
+RUN git clone https://github.com/sstephenson/ruby-build.git .ruby-build
+RUN .ruby-build/install.sh
+RUN rm -fr .ruby-build
+
+# Install ruby-<%=@ruby_versions[0] %>
+RUN ruby-build <%= @ruby_versions[0] %> /usr/local
+
+

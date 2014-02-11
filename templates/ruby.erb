@@ -1,5 +1,0 @@
-# Install ruby
-RUN wget -P /root/src ftp://ftp.ruby-lang.org/pub/ruby/ruby-<%= @ruby_versions[0] %>.tar.gz
-RUN cd /root/src; tar xvf ruby-<%= @ruby_versions[0] %>.tar.gz
-RUN cd /root/src/ruby-<%= @ruby_versions[0] %>; ./configure --disable-install-doc; make install
-
