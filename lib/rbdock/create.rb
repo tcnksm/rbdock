@@ -52,35 +52,35 @@ module Rbdock
     end
 
     def default_template
-      template_path = Rbdock.source_root.join("templates/#{@image}_base_packages.erb")
+      template_path = Rbdock.source_root.join("templates/base_package/#{@image}.erb")
       template = Erubis::Eruby.new(template_path.read, trim: true).result(binding)
       
-      template_path = Rbdock.source_root.join("templates/ruby.erb")
+      template_path = Rbdock.source_root.join("templates/default/ruby.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)
       
-      template_path = Rbdock.source_root.join("templates/bundler.erb")
+      template_path = Rbdock.source_root.join("templates/default/bundler.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)      
     end
 
     def rbenv_template
-      template_path = Rbdock.source_root.join("templates/#{@image}_base_packages.erb")
+      template_path = Rbdock.source_root.join("templates/base_package/#{@image}.erb")
       template = Erubis::Eruby.new(template_path.read, trim: true).result(binding)
       
-      template_path = Rbdock.source_root.join("templates/rbenv_ruby.erb")
+      template_path = Rbdock.source_root.join("templates/rbenv/ruby.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)
       
-      template_path = Rbdock.source_root.join("templates/rbenv_bundler.erb")
+      template_path = Rbdock.source_root.join("templates/rbenv/bundler.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)      
     end
 
     def rvm_template
-      template_path = Rbdock.source_root.join("templates/#{@image}_base_packages.erb")
+      template_path = Rbdock.source_root.join("templates/base_package/#{@image}.erb")
       template = Erubis::Eruby.new(template_path.read, trim: true).result(binding)
       
-      template_path = Rbdock.source_root.join("templates/rvm_ruby.erb")
+      template_path = Rbdock.source_root.join("templates/rvm/ruby.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)
       
-      template_path = Rbdock.source_root.join("templates/rvm_bundler.erb")
+      template_path = Rbdock.source_root.join("templates/rvm/bundler.erb")
       template << Erubis::Eruby.new(template_path.read, trim: true).result(binding)      
     end
 
