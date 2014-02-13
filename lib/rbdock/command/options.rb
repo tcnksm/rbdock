@@ -11,7 +11,7 @@ module Rbdock
         command_parser = create_command_parser options
         
         begin
-          command_parser.order!(argv)          
+          command_parser.parse!(argv)          
           ruby_version_perser options, argv
         rescue OptionParser::MissingArgument, OptionParser::InvalidOption, ArgumentError => e
           abort e.message
@@ -38,8 +38,11 @@ module Rbdock
           opt.on('--rvm',   desc='Use rvm') {
             options[:use_rvm] = true
           }
-          opt.on('--rails=path', 'Set Rails app') { |path|
-            options[:rails] = path
+          opt.on('--rails=path', 'Add Rails app') { |path|
+            options[:app] = path
+          }
+          opt.on('--sinatra=path', 'Add Sinatra app') { |path|
+            options[:app] = path
           }
           opt.on('-l','--list', 'List all available ruby versions') {
             list_ruby_versions
@@ -73,7 +76,7 @@ module Rbdock
       def self.check_version_avaiable argv
         argv.each do |v|
           if not Rbdock::Generate.ruby_versions.include? v
-            raise ArgumentError, "Definition not found: #{v} \n\nYou can list all available ruby versions with `rbdock create --list'."            
+            raise ArgumentError, "Definition not found: #{v} \n\nYou can list all available ruby versions with `rbdock --list'."            
           end
         end
       end

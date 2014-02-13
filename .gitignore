@@ -18,3 +18,4 @@ tmp
 Dockerfile
 .vagrant
 vendor/
+.rbdock_app

@@ -33,6 +33,13 @@ You can create `Dockerfile` to build multiple versions of ruby.
 $ rbdock create 2.0.0-p353 1.9.3-p484
 ```
 
+You can work with rails application.
+
+```
+$ rbdock 2.1.0 --rails https://github.com/mkwiatkowski/todo-rails4-angularjs
+```
+
+
 ### Options
 
 |Option | Description |

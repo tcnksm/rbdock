@@ -13,7 +13,7 @@ module Rbdock
       @ruby_versions = options[:ruby_versions]
       @use_rbenv     = options[:use_rbenv]
       @use_rvm       = options[:use_rvm]
-      @rails         = options[:rails]
+      @app           = options[:app]
     end
 
     def execute      
@@ -51,7 +51,7 @@ module Rbdock
       @ruby_versions.length > 1
     end
 
-    def self.erubis template_path
+    def erubis template_path
       Erubis::Eruby.new(template_path.read, trim: true).result(binding)
     end
 
@@ -61,11 +61,10 @@ module Rbdock
     
     def default_template
       template = base_package_template
-            
       template << erubis(Rbdock.source_root.join("templates/default/ruby.erb"))           
       template << erubis(Rbdock.source_root.join("templates/default/bundler.erb"))
-      template << erubis(Rbdock.source_root.join("templates/default/rails.erb")) if @rails
-      
+      template << erubis(Rbdock.source_root.join("templates/default/rails.erb")) if @app
+      template
     end
 
     def rbenv_template
