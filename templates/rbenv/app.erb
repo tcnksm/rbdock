@@ -1,0 +1,7 @@
+# Add Rails project
+RUN mkdir /myapp
+WORKDIR /myapp
+ADD <%= @app_path %>/Gemfile /myapp/Gemfile
+RUN bash -l -c 'bundle install'
+ADD <%= @app_path %> /myapp
+

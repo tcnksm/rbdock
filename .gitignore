@@ -19,3 +19,4 @@ Dockerfile
 .vagrant
 vendor/
 .rbdock_app
+myapp/

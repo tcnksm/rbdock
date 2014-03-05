@@ -13,9 +13,9 @@ module Rbdock
 
     def execute
       options = Options.parse!(@argv)
-
-      Rbdock.clone_app_to_local(options[:app])
-      exit
+      if options[:app]
+        options[:app_path] = Rbdock.clone_app_to_local(options[:app])
+      end
       Rbdock::Generate.run(options)
     rescue => e
       abort "Error: #{e.message}"

@@ -13,7 +13,7 @@ module Rbdock
       @ruby_versions = options[:ruby_versions]
       @use_rbenv     = options[:use_rbenv]
       @use_rvm       = options[:use_rvm]
-      @app           = options[:app]
+      @app_path      = options[:app_path]
     end
 
     def execute      
@@ -63,20 +63,23 @@ module Rbdock
       template = base_package_template
       template << erubis(Rbdock.source_root.join("templates/default/ruby.erb"))           
       template << erubis(Rbdock.source_root.join("templates/default/bundler.erb"))
-      template << erubis(Rbdock.source_root.join("templates/default/rails.erb")) if @app
+      template << erubis(Rbdock.source_root.join("templates/default/app.erb")) if @app_path
       template
     end
 
     def rbenv_template
       template = base_package_template
       template << erubis(Rbdock.source_root.join("templates/rbenv/ruby.erb"))           
-      template << erubis(Rbdock.source_root.join("templates/rbenv/bundler.erb"))      
+      template << erubis(Rbdock.source_root.join("templates/rbenv/bundler.erb"))
+      template << erubis(Rbdock.source_root.join("templates/rbenv/app.erb")) if @app_path
+      template
     end
 
     def rvm_template
       template = base_package_template
       template << erubis(Rbdock.source_root.join("templates/rvm/ruby.erb"))           
       template << erubis(Rbdock.source_root.join("templates/rvm/bundler.erb"))
+      template << erubis(Rbdock.source_root.join("templates/rvm/app.erb")) if @app_path
     end
 
     def self.ruby_versions

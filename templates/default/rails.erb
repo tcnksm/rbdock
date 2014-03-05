@@ -1,9 +1,0 @@
-# Add Rails project
-RUN mkdir /myapp
-WORKDIR /myapp
-ADD .rbdock_app/Gemfile /myapp/Gemfile
-RUN bundle install
-ADD .rbdock_app /myapp
-
-EXPOSE 3000
-CMD ["bundle","exec","rackup","-p","3000"]

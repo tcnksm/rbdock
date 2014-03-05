@@ -16,7 +16,7 @@ module Rbdock
         rescue OptionParser::MissingArgument, OptionParser::InvalidOption, ArgumentError => e
           abort e.message
         end
-
+        
         options
       end
 
@@ -38,12 +38,9 @@ module Rbdock
           opt.on('--rvm',   desc='Use rvm') {
             options[:use_rvm] = true
           }
-          opt.on('--rails=path', 'Add Rails app') { |path|
+          opt.on('-a path','--app=path', 'Add Rails/Sinatra app') { |path|
             options[:app] = path
-          }
-          opt.on('--sinatra=path', 'Add Sinatra app') { |path|
-            options[:app] = path
-          }
+          }         
           opt.on('-l','--list', 'List all available ruby versions') {
             list_ruby_versions
           }          
