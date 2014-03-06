@@ -71,6 +71,7 @@ It generates this [Dockerfile](https://gist.github.com/tcnksm/9389116). Your app
 |--image `name`| Set base image. Now `ubuntu` or `cenos` is avalable. Default is `ubuntu`.|
 |--rbenv| Use [rbenv](https://github.com/sstephenson/rbenv) to manage ruby installation|
 |--rvm  | Use [rvm](https://github.com/wayneeseguin/rvm) to manage ruby installation|
+|--app `url` | Add Rails/Sinatra application. You can set local path or remote host|
 |--list | List all available ruby versions.|
 
 
