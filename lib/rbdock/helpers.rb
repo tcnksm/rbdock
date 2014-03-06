@@ -13,7 +13,7 @@ module Rbdock
       raise StandardError, "command git not found." if `which git`.empty?
 
       if local? url
-        if not File.exist?(File.join(source_root, url))
+        if not File.exist? url
           raise StandardError, "#{url} is not exit"
         end
         
