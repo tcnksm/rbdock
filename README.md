@@ -23,88 +23,46 @@ Or install it yourself as:
 
 ## Usage
 
+### Create Dockerfile to build ruby
+
 Create `Dockerfile` to build ruby 2.0.0-p353 ready image.
 
 ```
 $ rbdock 2.1.0
 ```
 
-This generates 
+It generates this [Dockerfile](https://gist.github.com/tcnksm/9388685). 
+
+You can create `Dockerfile` to build multiple versions of ruby by rbenv or rvm.
 
 ```
-FROM ubuntu
-
-# Install basic packages
-RUN apt-get update
-RUN apt-get install -y build-essential wget curl git
-RUN apt-get install -y zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev
-RUN apt-get clean
-
-# Install ruby-build
-RUN git clone https://github.com/sstephenson/ruby-build.git .ruby-build
-RUN .ruby-build/install.sh
-RUN rm -fr .ruby-build
-
-# Install ruby-2.1.0
-RUN ruby-build 2.1.0 /usr/local
-
-# Install bundler
-RUN gem update --system
-RUN gem install bundler --no-rdoc --no-ri
+$ rbdock 2.0.0-p353 1.9.3-p484 -i centos
 ```
 
-You can create `Dockerfile` to build multiple versions of ruby.
+It generates this [Dockerfile](https://gist.github.com/tcnksm/9388736). 
+
+
+### Create Dockerfile for rails/sinatra application
+
+For example, you can work with rails application developed on local environment. 
 
 ```
-$ rbdock 2.0.0-p353 1.9.3-p484
+$ rails new my_rails_app
+$ rbdock 2.1.0 --app my_rails_app --rbenv
+$ docker build -t tcnksm/rails_app .
+$ docker run -i -p 3000:3000 -t tcnksm/rails_app 'rails server'
 ```
 
-This generates,
+It generates this [Dockerfile](https://gist.github.com/tcnksm/9389036). 
+
+You can work with application hosted on remote repository. For example, this is my sinatra application hosted on github. 
 
 ```
-FROM ubuntu
-
-# Install basic packages
-RUN apt-get update
-RUN apt-get install -y build-essential wget curl git
-RUN apt-get install -y zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev
-RUN apt-get clean
-
-# Install rbenv and ruby-build
-RUN git clone https://github.com/sstephenson/rbenv.git /root/.rbenv
-RUN git clone https://github.com/sstephenson/ruby-build.git /root/.rbenv/plugins/ruby-build
-RUN ./root/.rbenv/plugins/ruby-build/install.sh
-ENV PATH /root/.rbenv/bin:$PATH
-RUN echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh # or /etc/profile
-RUN echo 'eval "$(rbenv init -)"' >> .bashrc
-
-# Install multiple versions of ruby
-ENV CONFIGURE_OPTS --disable-install-doc
-RUN rbenv install 2.0.0-p353
-RUN rbenv install 1.9.3-p484
-
-# Install Bundler for each version of ruby
-RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
-RUN bash -l -c 'rbenv global 2.0.0-p353; gem update; gem install bundler'
-RUN bash -l -c 'rbenv global 1.9.3-p484; gem update; gem install bundler'
+$ rbdock 2.0.0-p353 --app https://github.com/tcnksm/trying-space
+$ docker build -t tcnksm/sinatra_app .
+$ docker run -i -p 8080:8080 -t tcnksm/my_sinatra_app 'rackup -p 8080'
 ```
-
-You can work with rails or sinatra application.
-
-```
-$ rails new myapp
-$ rbdock 2.1.0 --app myapp --rbenv
-$ docker build -t tcnksm/my_rails_app .
-$ docker run -i -p 3000:3000 -t tcnksm/my_rails_app bash -l -c 'rails server'
-```
-
-You can work with application host on remote repository
-
-```
-$ rbdock 2.1.0 --app https://github.com/tcnksm/trying-space
-$ docker build -t tcnksm/my_sinatra_app .
-$ docker run -i -p 8080:8080 -t tcnksm/my_sinatra_app bash -l -c 'rackup -p 8080'
-```
+It generates this [Dockerfile](https://gist.github.com/tcnksm/9389116). Your application will be cloned to local directory (`.rbdock_app`) and `ADD` to docker image.
 
 ### Options
 

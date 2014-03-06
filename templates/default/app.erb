@@ -1,8 +1,9 @@
-# Add Rails project
+# Add application
 RUN mkdir /myapp
 WORKDIR /myapp
 ADD <%= @app_path %>/Gemfile /myapp/Gemfile
 RUN bundle install
 ADD <%= @app_path %> /myapp
 
+ENTRYPOINT ["bash", "-l", "-c"]
 
