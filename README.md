@@ -25,7 +25,7 @@ Or install it yourself as:
 
 ### Create Dockerfile to build ruby
 
-Create `Dockerfile` to build ruby 2.0.0-p353 ready image.
+Create `Dockerfile` to build ruby 2.1.0 ready image.
 
 ```
 $ rbdock 2.1.0
