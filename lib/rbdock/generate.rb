@@ -1,4 +1,5 @@
 require "erubis"
+require "fileutils"
 
 module Rbdock
 
@@ -14,10 +15,13 @@ module Rbdock
       @use_rbenv     = options[:use_rbenv]
       @use_rvm       = options[:use_rvm]
       @app_path      = options[:app_path]
+      @install       = options[:install]
     end
 
-    def execute      
-      if @use_rbenv
+    def execute
+      if @install
+        install_rake_tasks
+      elsif @use_rbenv
         safe_write rbenv_template
       elsif @use_rvm
         safe_write rvm_template
@@ -27,7 +31,16 @@ module Rbdock
         safe_write default_template
       end
     end
-    
+
+    def install_rake_tasks
+      rake_file = 'lib/tasks/docker.rake'
+      if File.exist? rake_file
+        STDERR.print "Overwrite docker.rake? y/n: "
+        File.delete(rake_file) if $stdin.gets.chomp == 'y'
+      end
+      FileUtils.copy_file Rbdock.source_root.join("templates/tasks/docker.rake"), rake_file
+    end
+
     def safe_write content
       if File.exist? 'Dockerfile'
         STDERR.print "Overwrite Dockerfile? y/n: "
