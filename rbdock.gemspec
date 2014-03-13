@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Rbdock::VERSION
   spec.authors       = ["tcnksm"]
   spec.email         = ["nsd22843@gmail.com"]
-  spec.summary       = %q{Generate Dockerfile which install ruby.}
-  spec.description   = %q{Generate Dockerfile which install ruby.}
+  spec.summary       = %q{Generate Dockerfile for ruby/rails/sinatra.}
+  spec.description   = %q{Generate Dockerfile for ruby or running rails/sinatra.}
   spec.homepage      = "https://github.com/tcnksm/rbdock"
   spec.license       = "MIT"
 
