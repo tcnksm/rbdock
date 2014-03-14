@@ -5,8 +5,10 @@ module Rbdock
     module Options
       
       def self.parse!(argv)
-        options = {}
 
+        return { :install => true } if argv[0] == 'install'
+
+        options = {}
         set_default_value options
         command_parser = create_command_parser options
         
