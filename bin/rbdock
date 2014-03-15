@@ -1,4 +1,14 @@
 #!/usr/bin/env ruby
 
+argv = ARGV.dup
+
+if argv.include?("--debug")
+  argv.delete("--debug")
+  ENV["RBDOCK_LOG"] = "debug"
+end
+
 require 'rbdock'
+logger = Log4r::Logger.new("rbdock::bin::rbdock")
+logger.info("`rbdock` invoked: #{ARGV.inspect}")
+
 Rbdock::Command.run(ARGV)

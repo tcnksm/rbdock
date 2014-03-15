@@ -9,6 +9,9 @@ module Rbdock
     end
     
     def initialize options
+      @logger        = Log4r::Logger.new("rbdock::generate")
+      @logger.info("Generate options: #{options.inspect}")
+      
       @image         = options[:image]
       @ruby_versions = options[:ruby_versions]
       @use_rbenv     = options[:use_rbenv]
@@ -60,6 +63,7 @@ module Rbdock
     end
     
     def default_template
+      @logger.debug("No ruby version manager")
       template = base_package_template
       template << erubis(Rbdock.source_root.join("templates/default/ruby.erb"))           
       template << erubis(Rbdock.source_root.join("templates/default/bundler.erb"))
@@ -68,6 +72,7 @@ module Rbdock
     end
 
     def rbenv_template
+      @logger.debug("Use rbenv for ruby version manager")
       template = base_package_template
       template << erubis(Rbdock.source_root.join("templates/rbenv/ruby.erb"))           
       template << erubis(Rbdock.source_root.join("templates/rbenv/bundler.erb"))
@@ -76,10 +81,12 @@ module Rbdock
     end
 
     def rvm_template
+      @logger.debug("Use rvm for ruby version manager")
       template = base_package_template
       template << erubis(Rbdock.source_root.join("templates/rvm/ruby.erb"))           
       template << erubis(Rbdock.source_root.join("templates/rvm/bundler.erb"))
       template << erubis(Rbdock.source_root.join("templates/rvm/app.erb")) if @app_path
+      template
     end
 
     def self.ruby_versions

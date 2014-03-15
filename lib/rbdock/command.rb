@@ -8,7 +8,8 @@ module Rbdock
     end
 
     def initialize argv
-      @argv = argv
+      @logger = Log4r::Logger.new("rbdock::command")
+      @argv   = argv
     end
 
     def execute
