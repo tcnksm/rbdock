@@ -15,7 +15,7 @@ module Rbdock
     def execute
       options = Options.parse!(@argv)
       if options[:app]
-        options[:app_path] = Rbdock.clone_app_to_local(options[:app])
+        options[:app_path] = Rbdock::Application.prepare(options[:app])
       end
       Rbdock::Generate.run(options)
     rescue => e

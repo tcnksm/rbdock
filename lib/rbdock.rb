@@ -43,6 +43,7 @@ end
 require "rbdock/helpers"
 
 module Rbdock
-  autoload :Command, "rbdock/command"
-  autoload :Generate, "rbdock/generate"
+  autoload :Command,     "rbdock/command"
+  autoload :Generate,    "rbdock/generate"
+  autoload :Application, "rbdock/application"
 end
