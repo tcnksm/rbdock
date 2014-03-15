@@ -5,6 +5,8 @@ module Rbdock
     module Options
       
       def self.parse!(argv)
+
+        # Restore option and its value
         options = {}
 
         set_default_value options
@@ -35,7 +37,7 @@ module Rbdock
           opt.on('--rbenv', desc='Use rbenv') {
             options[:use_rbenv] = true
           }
-          opt.on('--rvm',   desc='Use rvm') {
+          opt.on('--rvm', desc='Use rvm') {
             options[:use_rvm] = true
           }
           opt.on('-a path','--app=path', 'Add Rails/Sinatra app') { |path|
@@ -43,7 +45,8 @@ module Rbdock
           }         
           opt.on('-l','--list', 'List all available ruby versions') {
             list_ruby_versions
-          }          
+          }
+          opt.on('--debug', desc='Run as debug mode')
         end
       end
 
@@ -56,7 +59,7 @@ module Rbdock
       end
 
       def self.show_help opt
-        opt.banner   = "Usage: #{opt.program_name} <ruby-versions> [<args>]"
+        opt.banner   = "Usage: #{opt.program_name} <ruby-versions> [args]"
         opt.on_tail('-h','--help','Show this message') {
           STDERR.puts opt.help
           exit              
