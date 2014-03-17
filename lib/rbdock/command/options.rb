@@ -24,6 +24,7 @@ module Rbdock
 
       def self.set_default_value options
         options[:image] = "ubuntu"
+        options[:output_filename] = "Dockerfile"
       end
 
       def self.create_command_parser options
@@ -31,18 +32,27 @@ module Rbdock
           show_version opt
           show_help opt
 
-          opt.on('-i name','--image=name', 'Set image name(ubuntu|centos)') { |v|
-            options[:image] = v
+          opt.on('-i name','--image=name', 'Set image name(ubuntu|centos)') { |i|
+            options[:image] = i
           }
-          opt.on('--rbenv', desc='Use rbenv') {
-            options[:use_rbenv] = true
-          }
-          opt.on('--rvm', desc='Use rvm') {
-            options[:use_rvm] = true
-          }
+
           opt.on('-a path','--app=path', 'Add Rails/Sinatra app') { |path|
             options[:app] = path
-          }         
+          }
+          
+          opt.on('-o filename', '--ouput=filename', 'Set output file name (Default is Dockerfile)') { |f|
+            options[:output_filename] = f
+
+          }
+          
+          opt.on('--rbenv', desc='Use rbenv for ruby version manager') {
+            options[:use_rbenv] = true
+          }
+          
+          opt.on('--rvm', desc='Use rvm for ruby version manager') {
+            options[:use_rvm] = true
+          }
+      
           opt.on('-l','--list', 'List all available ruby versions') {
             list_ruby_versions
           }
@@ -59,7 +69,7 @@ module Rbdock
       end
 
       def self.show_help opt
-        opt.banner   = "Usage: #{opt.program_name} <ruby-versions> [args]"
+        opt.banner   = "Usage: #{opt.program_name} <ruby-versions> [options]"
         opt.on_tail('-h','--help','Show this message') {
           STDERR.puts opt.help
           exit              

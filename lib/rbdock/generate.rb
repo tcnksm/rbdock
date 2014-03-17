@@ -14,6 +14,7 @@ module Rbdock
       
       @image         = options[:image]
       @ruby_versions = options[:ruby_versions]
+      @dockerfile    = options[:output_filename]
       @use_rbenv     = options[:use_rbenv]
       @use_rvm       = options[:use_rvm]
       @app_path      = options[:app_path]
@@ -32,21 +33,21 @@ module Rbdock
     end
     
     def safe_write content
-      if File.exist? 'Dockerfile'
-        STDERR.print "Overwrite Dockerfile? y/n: "
+      if File.exist? @dockerfile
+        STDERR.print "Overwrite #{@dockerfile}? y/n: "
         if $stdin.gets.chomp == 'y'
-          File.open('Dockerfile','w') do |f|
+          File.open(@dockerfile,'w') do |f|
             f.puts content
           end
-          STDERR.puts 'Dockerfile is successfully generated'
+          STDERR.puts "#{@dockerfile} is successfully generated"
         else          
           puts content
         end
       else
-        File.open('Dockerfile','w') do |f|
+        File.open(@dockerfile,'w') do |f|
           f.puts content
         end
-        STDERR.puts 'Dockerfile is successfully generated'
+        STDERR.puts "#{@dockerfile} is successfully generated"
       end
     end
 
