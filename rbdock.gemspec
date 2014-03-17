@@ -20,10 +20,12 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "erubis", "~> 2.7.0"
   spec.add_dependency "log4r", "~> 1.1.10"
+  spec.add_dependency "gem-man"
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", ">= 2.13"
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "yard", "~> 0.8"
   spec.add_development_dependency "redcarpet", "~> 2.2"
+  spec.add_development_dependency "ronn"
 end

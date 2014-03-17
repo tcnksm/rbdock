@@ -1,0 +1,56 @@
+rbdock(1) -- Generate Dockerfile for Ruby, Rails and Sinatra
+====
+
+## SYNOPSIS
+
+`rbdock` <ruby-versions>
+
+## DESCRIPTION
+
+**rbdock** is a simple command-line tool for generating Dockerfile for Ruby, Ruby on Rails and Sinatra application. It generate all most you need when you run Ruby application in docker container, so it's perfect for first point for starting to use docker with ruby. It just generating Dockerfile, so you just edit it add your own setting.
+
+## OPTIONS
+      
+  * `-a URL`, `--app URL`:
+      URL or path to your Rails or Sinatra application.
+    
+  * `-i`, `--image`:
+      Base image name. You can use ubuntu or centos now. By default, rbdock use ubuntu.
+    
+  * `--rbenv`:
+      Use rbenv for ruby version manager.
+    
+  * `--rvm`:
+      Use rvm for ruby version manager.
+    
+  * `-o FILENAME`, `--output FILENAME`:
+      Output filename. By default, **rbdock** use Dockefile.
+
+  * `-f`, `--force`:
+      Attempt to overwrite Dockerfile without prompting for confirmation even if Dockerfile exists.
+
+  * `-l`, `--list`:
+      List all available ruby version.
+    
+## EXAMPLE
+
+Generate Dockerfile to build ruby 2.1.0 ready image.
+
+    $ rbdock 2.1.0
+
+Generate Dockerfile to build multiple versions of ruby by rvm.
+
+    $ rbdock 2.0.0-p353 1.9.3-p484 --rvm
+
+Generate Dockerfile for Rails with ruby 2.1.0.
+
+    $ rbdock 2.1.0 --app my_rails_app/
+
+## BUGS
+
+Report issues at <https://github.com/tcnksm/rbdock>.
+
+## COPYRIGHT
+
+rbdock is Copyright (C) 2014 Taichi Nakashima <http://github.com/tcnksm>
+

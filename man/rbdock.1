@@ -1,0 +1,88 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "RBDOCK" "1" "March 2014" "" ""
+.
+.SH "NAME"
+\fBrbdock\fR \- Generate Dockerfile for Ruby, Rails and Sinatra
+.
+.SH "SYNOPSIS"
+\fBrbdock\fR \fIruby\-versions\fR
+.
+.SH "DESCRIPTION"
+\fBrbdock\fR is a simple command\-line tool for generating Dockerfile for Ruby, Ruby on Rails and Sinatra application\. It generate all most you need when you run Ruby application in docker container, so it\'s perfect for first point for starting to use docker with ruby\. It just generating Dockerfile, so you can edit it for your own setting\.
+.
+.SH "OPTIONS"
+.
+.TP
+\fB\-a URL\fR, \fB\-\-app URL\fR
+URL or path to your Rails or Sinatra application\.
+.
+.TP
+\fB\-i\fR, \fB\-\-image\fR
+Base image name\. You can use ubuntu or centos now\. By default, \fBrbdock\fR use ubuntu\.
+.
+.TP
+\fB\-\-rbenv\fR
+Use rbenv for ruby version manager\.
+.
+.TP
+\fB\-\-rvm\fR
+Use rvm for ruby version manager\.
+.
+.TP
+\fB\-o FILENAME\fR, \fB\-\-output FILENAME\fR
+Output filename\. By default, \fBrbdock\fR use Dockefile\.
+.
+.TP
+\fB\-f\fR, \fB\-\-force\fR
+Attempt to overwrite Dockerfile without prompting for confirmation even if Dockerfile exists\.
+.
+.TP
+\fB\-l\fR, \fB\-\-list\fR
+List all available ruby version\.
+.
+.SH "EXAMPLE"
+Generate Dockerfile to build ruby 2\.1\.0 ready image\.
+.
+.IP "" 4
+.
+.nf
+
+$ rbdock 2\.1\.0
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Generate Dockerfile to build multiple versions of ruby by rvm\.
+.
+.IP "" 4
+.
+.nf
+
+$ rbdock 2\.0\.0\-p353 1\.9\.3\-p484 \-\-rvm
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Generate Dockerfile for Rails with ruby 2\.1\.0\.
+.
+.IP "" 4
+.
+.nf
+
+$ rbdock 2\.1\.0 \-\-app my_rails_app/
+.
+.fi
+.
+.IP "" 0
+.
+.SH "BUGS"
+Report issues at \fIhttps://github\.com/tcnksm/rbdock\fR\.
+.
+.SH "COPYRIGHT"
+rbdock is Copyright (C) 2014 Taichi Nakashima \fIhttp://github\.com/tcnksm\fR

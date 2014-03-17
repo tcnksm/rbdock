@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>rbdock(1) - Generate Dockerfile for Ruby, Rails and Sinatra</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#EXAMPLE">EXAMPLE</a>
+    <a href="#BUGS">BUGS</a>
+    <a href="#COPYRIGHT">COPYRIGHT</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>rbdock(1)</li>
+    <li class='tc'></li>
+    <li class='tr'>rbdock(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>rbdock</code> - <span class="man-whatis">Generate Dockerfile for Ruby, Rails and Sinatra</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>rbdock</code> <var>ruby-versions</var></p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p><strong>rbdock</strong> is a simple command-line tool for generating Dockerfile for Ruby, Ruby on Rails and Sinatra application. It generate all most you need when you run Ruby application in docker container, so it's perfect for first point for starting to use docker with ruby. It just generating Dockerfile, so you can edit it for your own setting.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<dl>
+<dt><code>-a URL</code>, <code>--app URL</code></dt><dd><p>  URL or path to your Rails or Sinatra application.</p></dd>
+<dt><code>-i</code>, <code>--image</code></dt><dd><p>  Base image name. You can use ubuntu or centos now. By default, <strong>rbdock</strong> use ubuntu.</p></dd>
+<dt class="flush"><code>--rbenv</code></dt><dd><p>  Use rbenv for ruby version manager.</p></dd>
+<dt class="flush"><code>--rvm</code></dt><dd><p>  Use rvm for ruby version manager.</p></dd>
+<dt><code>-o FILENAME</code>, <code>--output FILENAME</code></dt><dd><p>  Output filename. By default, <strong>rbdock</strong> use Dockefile.</p></dd>
+<dt><code>-f</code>, <code>--force</code></dt><dd><p>  Attempt to overwrite Dockerfile without prompting for confirmation even if Dockerfile exists.</p></dd>
+<dt><code>-l</code>, <code>--list</code></dt><dd><p>  List all available ruby version.</p></dd>
+</dl>
+
+
+<h2 id="EXAMPLE">EXAMPLE</h2>
+
+<p>Generate Dockerfile to build ruby 2.1.0 ready image.</p>
+
+<pre><code>$ rbdock 2.1.0
+</code></pre>
+
+<p>Generate Dockerfile to build multiple versions of ruby by rvm.</p>
+
+<pre><code>$ rbdock 2.0.0-p353 1.9.3-p484 --rvm
+</code></pre>
+
+<p>Generate Dockerfile for Rails with ruby 2.1.0.</p>
+
+<pre><code>$ rbdock 2.1.0 --app my_rails_app/
+</code></pre>
+
+<h2 id="BUGS">BUGS</h2>
+
+<p>Report issues at <a href="https://github.com/tcnksm/rbdock" data-bare-link="true">https://github.com/tcnksm/rbdock</a>.</p>
+
+<h2 id="COPYRIGHT">COPYRIGHT</h2>
+
+<p>rbdock is Copyright (C) 2014 Taichi Nakashima <a href="http://github.com/tcnksm" data-bare-link="true">http://github.com/tcnksm</a></p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>March 2014</li>
+    <li class='tr'>rbdock(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>
