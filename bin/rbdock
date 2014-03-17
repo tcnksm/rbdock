@@ -3,7 +3,6 @@
 argv = ARGV.dup
 
 if argv.include?("--debug")
-  argv.delete("--debug")
   ENV["RBDOCK_LOG"] = "debug"
 end
 
