@@ -12,12 +12,13 @@ module Rbdock
       @logger        = Log4r::Logger.new("rbdock::generate")
       @logger.info("Generate options: #{options.inspect}")
       
-      @image         = options[:image]
-      @ruby_versions = options[:ruby_versions]
-      @dockerfile    = options[:output_filename]
-      @use_rbenv     = options[:use_rbenv]
-      @use_rvm       = options[:use_rvm]
-      @app_path      = options[:app_path]
+      @image            = options[:image]
+      @ruby_versions    = options[:ruby_versions]
+      @dockerfile_name  = options[:output_filename]
+      @force_write_mode = options[:force_write_mode]
+      @use_rbenv        = options[:use_rbenv]
+      @use_rvm          = options[:use_rvm]
+      @app_path         = options[:app_path]
     end
 
     def execute      
@@ -33,21 +34,32 @@ module Rbdock
     end
     
     def safe_write content
-      if File.exist? @dockerfile
-        STDERR.print "Overwrite #{@dockerfile}? y/n: "
-        if $stdin.gets.chomp == 'y'
-          File.open(@dockerfile,'w') do |f|
+      if !@force_write_mode && File.exist?(@dockerfile_name)
+        STDERR.print "Overwrite #{@dockerfile_name}? Y/n: "
+        if $stdin.gets.chomp == 'Y'
+          File.open(@dockerfile_name,'w') do |f|
             f.puts content
           end
-          STDERR.puts "#{@dockerfile} is successfully generated"
+          
+          if @dockerfile_name == 'Dockerfile'
+            STDERR.puts "Dockerfile is successfully generated"
+          else
+            STDERR.puts "Dockerfile named '#{@dockerfile_name}' is successfully generated"
+          end
+          
         else          
           puts content
         end
       else
-        File.open(@dockerfile,'w') do |f|
+        File.open(@dockerfile_name,'w') do |f|
           f.puts content
         end
-        STDERR.puts "#{@dockerfile} is successfully generated"
+
+        if @dockerfile_name == 'Dockerfile'
+          STDERR.puts "Dockerfile is successfully generated"
+        else
+          STDERR.puts "Dockerfile named '#{@dockerfile_name}' is successfully generated"
+        end
       end
     end
 

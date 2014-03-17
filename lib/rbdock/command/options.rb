@@ -6,6 +6,9 @@ module Rbdock
       
       def self.parse!(argv)
 
+        # Setup logger
+        @logger = Log4r::Logger.new("rbdock::command::options")
+
         # Restore option and its value
         options = {}
 
@@ -32,7 +35,7 @@ module Rbdock
           show_version opt
           show_help opt
 
-          opt.on('-i name','--image=name', 'Set image name(ubuntu|centos)') { |i|
+          opt.on('-i name','--image=name', 'Set image name (ubuntu|centos)') { |i|
             options[:image] = i
           }
 
@@ -40,9 +43,13 @@ module Rbdock
             options[:app] = path
           }
           
-          opt.on('-o filename', '--ouput=filename', 'Set output file name (Default is Dockerfile)') { |f|
+          opt.on('-o filename', '--ouput=filename', 'Set output Dockerfile name') { |f|
             options[:output_filename] = f
 
+          }
+
+          opt.on('-f','--force', 'Attempt to overwrite Dockerfile without prompting for confirmation') {|b|
+            options[:force_write_mode] = b
           }
           
           opt.on('--rbenv', desc='Use rbenv for ruby version manager') {
@@ -56,6 +63,7 @@ module Rbdock
           opt.on('-l','--list', 'List all available ruby versions') {
             list_ruby_versions
           }
+          
           opt.on('--debug', desc='Run as debug mode')
         end
       end
