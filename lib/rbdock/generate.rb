@@ -153,6 +153,7 @@ module Rbdock
        "2.1.0-preview1", 
        "2.1.0-preview2", 
        "2.1.0-rc1", 
+       "2.1.2",
        "2.2.0-dev"  
       ]
     end
