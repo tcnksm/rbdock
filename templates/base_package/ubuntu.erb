@@ -1,13 +1,13 @@
 FROM ubuntu
 
-# Install basic dev tools 
+# Install basic dev tools
 RUN apt-get update && apt-get install -y \
     build-essential \
     wget \
     curl \
     git
 
-# Install package for ruby 
+# Install package for ruby
 RUN apt-get install -y \
     zlib1g-dev \
     libssl-dev \
@@ -22,5 +22,5 @@ RUN apt-get install -y \
     libsqlite3-dev
 
 # Install package for postgresql
-RUN apt-get install -y libpq-dev 
+RUN apt-get install -y libpq-dev
 
